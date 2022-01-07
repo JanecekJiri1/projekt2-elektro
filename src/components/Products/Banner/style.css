@@ -1,0 +1,49 @@
+.imgBanner {
+  height: 75vh;
+}
+
+.pozadi {
+  background-image: url(../../../assets/banner.jpg);
+  height: 75vh;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.438);
+}
+
+.textVBanneru {
+  position: relative;
+  top: 25%;
+  color: gold;
+  background-color: rgba(0, 0, 0, 0.61);
+  font-size: 2rem;
+  display: inline;
+  justify-content: center;
+  text-align: center;
+}
+.webTittle {
+  background-color: rgba(0, 0, 0, 0.288);
+  padding: 15px 0;
+  text-decoration: underline;
+}
+/* 
+.underNav {
+  display: flex;
+  justify-content: center;
+}
+
+.navItem {
+  margin: 0 15px;
+  border: 2px solid black;
+  padding: 2px 15px;
+  border-radius: 25px;
+  background-color: aliceblue;
+  color: rgba(31, 27, 22, 0.61);
+}
+
+.navItem:hover {
+  background-color: rgba(31, 27, 22, 0.61);
+  border: 2px solid aliceblue;
+  color: aliceblue;
+  cur sor: pointer;
+}*/
