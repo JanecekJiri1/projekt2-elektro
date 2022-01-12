@@ -26,24 +26,3 @@
   padding: 15px 0;
   text-decoration: underline;
 }
-/* 
-.underNav {
-  display: flex;
-  justify-content: center;
-}
-
-.navItem {
-  margin: 0 15px;
-  border: 2px solid black;
-  padding: 2px 15px;
-  border-radius: 25px;
-  background-color: aliceblue;
-  color: rgba(31, 27, 22, 0.61);
-}
-
-.navItem:hover {
-  background-color: rgba(31, 27, 22, 0.61);
-  border: 2px solid aliceblue;
-  color: aliceblue;
-  cur sor: pointer;
-}*/
