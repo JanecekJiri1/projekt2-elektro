@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { InputLabel, Select, MenuItem, Button, Grid, Typography } from "@material-ui/core";
+import {
+  InputLabel,
+  Select,
+  MenuItem,
+  Button,
+  Grid,
+  Typography,
+} from "@material-ui/core";
 import { useForm, FormProvider } from "react-hook-form";
 import { Link } from "react-router-dom";
 import FormInput from "./CustomTextField";
@@ -14,24 +21,38 @@ const AddressForm = ({ checkoutToken, next }) => {
   const [shippingOption, setShippingOption] = useState("");
   const methods = useForm();
 
-  const options = shippingOptions.map((sO) => ({ id: sO.id, label: `${sO.description} - (${sO.price.formatted_with_symbol})` }));
+  const options = shippingOptions.map((sO) => ({
+    id: sO.id,
+    label: `${sO.description} - (${sO.price.formatted_with_symbol})`,
+  }));
 
   const fetchShippingCountries = async (checkoutTokenId) => {
-    const { countries } = await commerce.services.localeListShippingCountries(checkoutTokenId);
+    const { countries } = await commerce.services.localeListShippingCountries(
+      checkoutTokenId
+    );
 
     setShippingCountries(countries);
     setShippingCountry(Object.keys(countries)[0]);
   };
 
   const fetchSubdivisions = async (countryCode) => {
-    const { subdivisions } = await commerce.services.localeListSubdivisions(countryCode);
+    const { subdivisions } = await commerce.services.localeListSubdivisions(
+      countryCode
+    );
 
     setShippingSubdivisions(subdivisions);
     setShippingSubdivision(Object.keys(subdivisions)[0]);
   };
 
-  const fetchShippingOptions = async (checkoutTokenId, country, stateProvince = null) => {
-    const options = await commerce.checkout.getShippingOptions(checkoutTokenId, { country, region: stateProvince });
+  const fetchShippingOptions = async (
+    checkoutTokenId,
+    country,
+    stateProvince = null
+  ) => {
+    const options = await commerce.checkout.getShippingOptions(
+      checkoutTokenId,
+      { country, region: stateProvince }
+    );
 
     setShippingOptions(options);
     setShippingOption(options[0].id);
@@ -39,15 +60,20 @@ const AddressForm = ({ checkoutToken, next }) => {
 
   useEffect(() => {
     fetchShippingCountries(checkoutToken.id);
-  }, []);
+  }, [checkoutToken.id]);
 
   useEffect(() => {
     if (shippingCountry) fetchSubdivisions(shippingCountry);
   }, [shippingCountry]);
 
   useEffect(() => {
-    if (shippingSubdivision) fetchShippingOptions(checkoutToken.id, shippingCountry, shippingSubdivision);
-  }, [shippingSubdivision]);
+    if (shippingSubdivision)
+      fetchShippingOptions(
+        checkoutToken.id,
+        shippingCountry,
+        shippingSubdivision
+      );
+  }, [shippingSubdivision, shippingCountry, checkoutToken.id]);
 
   return (
     <>
@@ -55,7 +81,16 @@ const AddressForm = ({ checkoutToken, next }) => {
         Shipping Address
       </Typography>
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit((data) => next({ ...data, setShippingCountry, shippingSubdivision, shippingOption }))}>
+        <form
+          onSubmit={methods.handleSubmit((data) =>
+            next({
+              ...data,
+              setShippingCountry,
+              shippingSubdivision,
+              shippingOption,
+            })
+          )}
+        >
           <Grid container spacing={3}>
             <FormInput name="firstName" label="First name" />
             <FormInput name="lastName" label="Last name" />
@@ -65,7 +100,11 @@ const AddressForm = ({ checkoutToken, next }) => {
             <FormInput name="zip" label="Postal code" />
             <Grid item xs={12} sm={6}>
               <InputLabel>Shipping Country</InputLabel>
-              <Select value={shippingCountry} fullWidth onChange={(event) => setShippingCountry(event.target.value)}>
+              <Select
+                value={shippingCountry}
+                fullWidth
+                onChange={(event) => setShippingCountry(event.target.value)}
+              >
                 {Object.entries(shippingCountries)
 
                   .map(([code, name]) => ({ id: code, label: name }))
@@ -79,7 +118,11 @@ const AddressForm = ({ checkoutToken, next }) => {
             <Grid item xs={12} sm={6}>
               <InputLabel>Shipping Subdivision</InputLabel>
 
-              <Select value={shippingSubdivision} fullWidth onChange={(e) => setShippingSubdivision(e.target.value)}>
+              <Select
+                value={shippingSubdivision}
+                fullWidth
+                onChange={(e) => setShippingSubdivision(e.target.value)}
+              >
                 {Object.entries(shippingSubdivisions)
                   .map(([code, name]) => ({ id: code, label: name }))
                   .map((item) => (
@@ -91,7 +134,11 @@ const AddressForm = ({ checkoutToken, next }) => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <InputLabel>Shipping Option</InputLabel>
-              <Select value={shippingOption} fullWidth onChange={(e) => setShippingOption(e.target.value)}>
+              <Select
+                value={shippingOption}
+                fullWidth
+                onChange={(e) => setShippingOption(e.target.value)}
+              >
                 {options.map((option) => (
                   <MenuItem key={option.id} value={option.id}>
                     {option.label}

@@ -52,7 +52,10 @@ function App() {
 
   const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
     try {
-      const incomingOrder = await commerce.checkout.capture(checkoutTokenId, newOrder);
+      const incomingOrder = await commerce.checkout.capture(
+        checkoutTokenId,
+        newOrder
+      );
 
       setOrder(incomingOrder);
 
@@ -66,13 +69,18 @@ function App() {
     fetchProducts();
     fetchCart();
   }, []);
-  console.log(products);
+
   return (
     <Router>
       <Fragment>
         <Navbar totalItems={cart.total_items} />
         <Routes>
-          <Route path="/" element={<Products products={products} onAddToCart={handleAddToCart} />}></Route>
+          <Route
+            path="/"
+            element={
+              <Products products={products} onAddToCart={handleAddToCart} />
+            }
+          ></Route>
           <Route
             path="/Cart"
             element={
@@ -87,7 +95,13 @@ function App() {
           <Route
             path="/checkout"
             element={
-              <Checkout cart={cart} order={order} onCaptureCheckout={handleCaptureCheckout} error={errorMessage} handleEmptyCart={handleEmptyCart} />
+              <Checkout
+                cart={cart}
+                order={order}
+                onCaptureCheckout={handleCaptureCheckout}
+                error={errorMessage}
+                handleEmptyCart={handleEmptyCart}
+              />
             }
           ></Route>
         </Routes>

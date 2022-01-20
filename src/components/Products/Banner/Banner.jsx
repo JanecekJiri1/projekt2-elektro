@@ -5,7 +5,7 @@ import "./style.css";
 const Banner = (prop) => {
   return (
     <>
-      <div class="pozadi">{prop.children}</div>
+      <div className="pozadi">{prop.children}</div>
     </>
   );
 };
